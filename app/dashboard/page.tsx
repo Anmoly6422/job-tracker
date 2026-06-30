@@ -19,6 +19,9 @@ export default async function Dashboard(){
 
     }).populate({
        path:"columns" ,
+       populate:{
+        path: "jobApplications",
+       },
 
     })
     return (<div className="min-h-screen bg-white">
