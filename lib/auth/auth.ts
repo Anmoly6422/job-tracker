@@ -11,6 +11,12 @@ const db= client.db()
     database:mongodbAdapter(db,{
         client,
     }),
+    session:{
+        cookieCache:{
+            enabled:true,
+            maxAge:60 *60,
+        }
+    },
     emailAndPassword: { 
     enabled: true, 
   }, 

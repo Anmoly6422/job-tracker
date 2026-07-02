@@ -97,14 +97,14 @@ function SortableJobCard({job,columns}:{job:JobApplication; columns:Column[]}){
 }
 export default function KanbanBoard({board,userId}: KanbanBoardProps){
 
-    const columns=board.columns;
+    const columns=board.columns ?? [];
 
  const sortedColumns = columns?.sort((a,b)=> a.order - b.order) || [];
 
     return( <>
     <div>
         <div>
-            {columns.map((col,key)=>{
+            {sortedColumns.map((col,key)=>{
                 const config=COLUMN_CONFIG[key] || {
                     color:"bg-gray-500",
                     icon:<Calendar className="h-4 w-4"/>
