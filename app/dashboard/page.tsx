@@ -6,6 +6,7 @@ import connectDB from "@/lib/db";
 import { Board } from "@/lib/models";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import DashboardSkeleton from "./loading";
 
 async function getBoard(userId:string){
   "use cache";
@@ -52,8 +53,8 @@ async function DashboardPage(){
 }
 export default async function Dashboard(){
     return (
-      <Suspense fallback={<p>Loading...</p>}>
-        <DashboardPage/>
-      </Suspense>
+      <Suspense fallback={<DashboardSkeleton />}>
+  <DashboardPage />
+</Suspense>
     );
 }
