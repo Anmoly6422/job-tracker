@@ -85,7 +85,7 @@ function DroppableColumn({column,config,boardId,sortedColumns
   
 
 return (
-     <Card className="min-w-7shrink-0 shadow-md p-0">
+      <Card className="min-w-75 shrink-0 shadow-md p-0">
       <CardHeader
         className={`${config.color} text-white rounded-t-lg pb-3 pt-3`}
       >
@@ -107,31 +107,35 @@ return (
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-            <DropdownMenuItem
-  className="text-destructive"
-  onClick={handleDeleteColumn}
->
-  <Trash2 className="mr-2 h-4 w-4" />
-  Delete Column
-</DropdownMenuItem>
+              <DropdownMenuItem className="text-destructive">
+                <Trash2 className="mr-2 h-4 w-4" />
+                Delete Column
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </CardHeader>
 
-      <CardContent  ref= {setNodeRef}
-      className={`space-y-2 pt-4 bg-gray-50/50 min-h-100 rounded-b-lg ${isOver ? "ring-2 ring-blue-500" :
-        ""
-       }`}>
-        <SortableContext items={sortedJobs.map((job) => job._id)}
-         strategy={verticalListSortingStrategy}>
-        {sortedJobs.map((job,key)=>(
-          <SortableJobCard key={key}  job={{...job,columnId: job.columnId || column._id}}
-          columns={sortedColumns}
-          />
-        ))}
+      <CardContent
+        ref={setNodeRef}
+        className={`space-y-2 pt-4 bg-gray-50/50 min-h-100 rounded-b-lg ${
+          isOver ? "ring-2 ring-blue-500" : ""
+        }`}
+      >
+        <SortableContext
+          items={sortedJobs.map((job) => job._id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {sortedJobs.map((job, key) => (
+            <SortableJobCard
+              key={key}
+              job={{ ...job, columnId: job.columnId || column._id }}
+              columns={sortedColumns}
+            />
+          ))}
         </SortableContext>
-       <CreateJobApplicationDialog columnId={column._id} boardId={boardId}/>
+
+        <CreateJobApplicationDialog columnId={column._id} boardId={boardId} />
       </CardContent>
     </Card>
 );
@@ -313,18 +317,8 @@ const sortedColumns = [...columns].sort((a, b) => a.order - b.order);
     onDragStart={handleDragStart}
     onDragEnd={handleDragEnd}
   >
-    <div className="space-y-6 rounded-3xl bg-linear-to-b from-slate-50 to-white p-4">
-      <div
-        className="
-          flex
-          gap-6
-          overflow-x-auto
-          pb-4
-          scroll-smooth
-          snap-x
-          snap-mandatory
-        "
-      >
+    <div className="space-y-4">
+        <div className="flex gap-4 overflow-x-auto pb-4">
         {sortedColumns.map((col, key) => {
           const config = COLUMN_CONFIG[key] || {
             color: "bg-gray-500",
