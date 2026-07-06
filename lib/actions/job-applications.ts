@@ -146,7 +146,7 @@ const jobApplication =await JobApplication.findById(id)
 
   if(isMovingToDifferentColumn){
     await Column.findByIdAndUpdate(currentColumnId,{
-      $pull: {jobApplication :id},
+      $pull: {jobApplications :id},
     });
 
     const jobsInTargetColumn =await JobApplication.find({
@@ -178,9 +178,9 @@ const jobApplication =await JobApplication.findById(id)
     updatesToApply.columnId = newColumnId
     updatesToApply.order = newOrderValue;
 
-    await Column.findByIdAndUpdate(newColumnId,{
-      $push :{ jobApplications:id},
-    });
+   await Column.findByIdAndUpdate(newColumnId, {
+  $addToSet: { jobApplications: id },
+});
 
 }  else if (order !== undefined && order !==null){
      const otherJobsInColumn = await JobApplication.find({

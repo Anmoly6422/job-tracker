@@ -59,7 +59,9 @@ function DroppableColumn({column,config,boardId,sortedColumns
         columnId:column._id,
       },
     })
-  const sortedJobs = column.jobApplications?.sort((a,b)=> a.order - b.order) || [];
+ const sortedJobs = [...(column.jobApplications ?? [])].sort(
+  (a, b) => a.order - b.order
+);
   const router = useRouter();
 
   const handleDeleteColumn = async () => {
@@ -128,7 +130,7 @@ return (
         >
           {sortedJobs.map((job, key) => (
             <SortableJobCard
-              key={key}
+              key={job._id}
               job={{ ...job, columnId: job.columnId || column._id }}
               columns={sortedColumns}
             />

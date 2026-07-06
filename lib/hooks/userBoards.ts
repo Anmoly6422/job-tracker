@@ -39,9 +39,12 @@ export function useBoard(initialBoard?: Board | null) {
         if (jobIndex !== -1 && jobIndex !== undefined) {
           jobToMove = col.jobApplications[jobIndex];
           oldColumnId = col._id;
-          col.jobApplications = col.jobApplications.filter(
-            (job) => job._id !== jobApplicationId
-          );
+          col.jobApplications = col.jobApplications
+  .filter((job) => job._id !== jobApplicationId)
+  .map((job, index) => ({
+    ...job,
+    order: index * 100,
+  }));
           break;
         }
       }
